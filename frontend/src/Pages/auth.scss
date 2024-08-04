@@ -1,3 +1,11 @@
+.auth-wrapper {
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
 
   .entry-form {
     background: #fff;
@@ -6,13 +14,13 @@
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
-  
+
   input {
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
   }
-  
+
   .submit-btn {
     padding: 10px 20px;
     background: #007bff;
@@ -21,8 +29,8 @@
     border-radius: 4px;
     cursor: pointer;
   }
-  
+
   button:hover {
     background: #0056b3;
   }
-  
+}
