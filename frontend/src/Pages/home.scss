@@ -1,27 +1,32 @@
-.header{
+.header {
     text-align: center;
+
     padding: 20px;
-    h3{
+
+    h3 {
         font-weight: 300;
     }
 }
-.hero-img{
+
+.hero-img {
     width: 100%;
 }
-.btn-con{
-display: flex;
-justify-content: space-around;
 
-align-items: center;
+.btn-con {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    // margin-bottom: 200px;
+    padding-bottom: 5%;
 
-.buttons{
-    text-align: center;
+    .buttons {
+        text-align: center;
 
-.home-btn{
-    padding: 20px 40px;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-}
-}
+        .home-btn {
+            padding: 20px 40px;
+            border-radius: 5px;
+            border: none;
+            cursor: pointer;
+        }
+    }
 }

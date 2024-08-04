@@ -12,7 +12,7 @@ const Layout = () => {
 			{location.pathname === "/" ? (
 				<> landing page </>
 			) : (
-				<div>
+				<div className="layout">
 					<Outlet />
 				</div>
 			)}

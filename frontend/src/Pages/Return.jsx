@@ -2,7 +2,7 @@
 import "./return.scss";
 
 const Return = () => {
-	return <div>return page</div>;
+	return <div className="return-page-wrapper">hi all</div>;
 };
 
 export default Return;
