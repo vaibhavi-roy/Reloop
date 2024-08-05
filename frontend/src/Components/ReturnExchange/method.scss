@@ -1,0 +1,111 @@
+.two-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    background: #fff;
+    padding: 32px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    // display: flex;
+    // flex-direction: column;
+    // align-items: flex-start;
+    // gap: 32px;
+    width: 50%;
+    height: 50%;
+    min-height: fit-content;
+
+    button {
+        height: 30%;
+        width: 35%;
+        padding: 10px 20px;
+        background: #f47421;
+        color: #222222;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+
+        span {
+            font-size: large;
+        }
+    }
+
+    .btn-one {
+        background-color: #ffc120;
+
+
+        &:hover {
+
+            background-color: #e1aa1e;
+        }
+    }
+
+    .btn-two {
+        &:hover {
+            background: #e06c1f;
+        }
+    }
+}
+
+.account-form-wrapper {
+    display: flex;
+    align-items: start;
+    flex-direction: column;
+    justify-content: space-around;
+    background: #fff;
+    padding: 32px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    // display: flex;
+    // flex-direction: column;
+    // align-items: flex-start;
+    // gap: 32px;
+    width: 40%;
+    height: 50%;
+    min-height: fit-content;
+
+    .sections {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    textarea,
+    input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    textarea {
+        resize: none;
+        outline: none;
+        min-height: 50px;
+        min-width: 100%;
+        width: 350px;
+    }
+
+    .btn-container {
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        // min-height: 25%;
+    }
+
+    button {
+        padding: 10px 20px;
+        background: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        height: max-content;
+        width: max-content;
+
+    }
+
+    button:hover {
+        background: #0056b3;
+    }
+}
