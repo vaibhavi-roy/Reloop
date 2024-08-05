@@ -2,8 +2,12 @@
 // import { useState } from "react";
 import "./return.scss";
 import ReasonAsking from "../Components/ReturnExchange/ReasonAsking";
+import Address from "../Components/ReturnExchange/Address";
+import Method from "../Components/ReturnExchange/Method";
+import { useEffect, useState } from "react";
 
 const Return = () => {
+	const [pageNumber, setPageNumber] = useState(0);
 	// const [imageProduct, setImageProduct] = useState(null);
 	// const [preview, setPreview] = useState(null);
 	// const [reason, setReason] = useState();
@@ -28,6 +32,7 @@ const Return = () => {
 	// 		console.log("File selected:", imageProduct);
 	// 	}
 	// };
+	useEffect(() => {});
 	return (
 		// <div className="return-page-wrapper">
 
@@ -67,9 +72,24 @@ const Return = () => {
 		// 	</div>
 		// </div>
 		<div className="return-page-wrapper">
-			<ReasonAsking />
+			{pageNumber === 0 && <ReasonAsking />}
+			{pageNumber === 1 && <Address />}
+			{pageNumber === 2 && <Method />}
 			<div className="main-btn-conatiner">
-				<button className="submit-btn">Continue</button>
+				{pageNumber > 0 && pageNumber < 3 && (
+					<button
+						className="submit-btn"
+						onClick={() => setPageNumber(pageNumber - 1)}>
+						back
+					</button>
+				)}
+				{pageNumber < 2 && pageNumber > -1 && (
+					<button
+						className="submit-btn"
+						onClick={() => setPageNumber(pageNumber + 1)}>
+						Continue
+					</button>
+				)}
 			</div>
 		</div>
 	);

@@ -1,5 +1,6 @@
 // import React from 'react'
 import { useState } from "react";
+import "./reasonAsking.scss";
 
 const ReasonAsking = () => {
 	const [imageProduct, setImageProduct] = useState();
