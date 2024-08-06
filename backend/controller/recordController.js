@@ -12,7 +12,10 @@ const createRecord = async (req, res) => {
   try {
     const newRecord = new Record({ productId, orderId });
     await newRecord.save();
-    res.status(201).json({ message: "Record saved successfully" });
+    res
+      .status(201)
+      .send(newRecord)
+      .json({ message: "Record saved successfully" });
   } catch (err) {
     res.status(500).json({ error: "Error saving record" });
   }
