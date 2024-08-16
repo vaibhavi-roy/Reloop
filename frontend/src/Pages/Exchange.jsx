@@ -6,8 +6,13 @@ import Address from "../Components/ReturnExchange/Address";
 // import Method from "../Components/ReturnExchange/Method";
 import { useEffect, useState } from "react";
 import { exchange_req } from "../Services/api.returnExchange";
+import { useNavigate } from "react-router-dom";
+import { Oval } from "react-loader-spinner";
+import Swal from "sweetalert2";
 
 const Exchange = () => {
+	const navigate = useNavigate();
+	const [isLoading, setIsLoading] = useState(false);
 	const [pageNumber, setPageNumber] = useState(0);
 	// const [imageProduct, setImageProduct] = useState(null);
 	// const [preview, setPreview] = useState(null);
@@ -35,6 +40,7 @@ const Exchange = () => {
 	// };
 
 	const applyExchange = async () => {
+		setIsLoading(true);
 		const data = {
 			productId: sessionStorage.getItem("productId"),
 			orderId: sessionStorage.getItem("orderId"),
@@ -54,8 +60,44 @@ const Exchange = () => {
 		try {
 			const res = await exchange_req(data);
 			console.log(res);
+			setIsLoading(false);
 			sessionStorage.clear();
+			sessionStorage.setItem("type", "exchange");
+			Swal.fire({
+				title: "Request Submitted",
+				icon: "success",
+				showClass: {
+					popup: `animate__animated
+					animate__fadeInUp
+					animate__faster`,
+				},
+				hideClass: {
+					popup: `
+							animate__animated 
+							animate__fadeOutDown 
+							animate__faster
+							`,
+				},
+			});
+			navigate("/home");
 		} catch (error) {
+			setIsLoading(false);
+			Swal.fire({
+				title: "Something went wrong - Restart the Proccess",
+				icon: "error",
+				showClass: {
+					popup: `animate__animated
+								animate__fadeInUp
+								animate__faster`,
+				},
+				hideClass: {
+					popup: `
+							animate__animated 
+							animate__fadeOutDown 
+							animate__faster
+						`,
+				},
+			});
 			console.log(error);
 		}
 	};
@@ -119,9 +161,23 @@ const Exchange = () => {
 					</button>
 				)}
 				{pageNumber === 1 && (
-					<button className="submit-btn" onClick={applyExchange}>
-						Apply
-					</button>
+					<>
+						{isLoading ? (
+							<Oval
+								visible={true}
+								height="80"
+								width="80"
+								color="#4fa94d"
+								ariaLabel="oval-loading"
+								wrapperStyle={{}}
+								wrapperClass=""
+							/>
+						) : (
+							<button className="submit-btn" onClick={applyExchange}>
+								Apply
+							</button>
+						)}
+					</>
 				)}
 			</div>
 		</div>

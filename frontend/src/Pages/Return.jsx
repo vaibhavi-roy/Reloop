@@ -141,6 +141,7 @@ export const applyReturn = async () => {
 			},
 		});
 		sessionStorage.clear();
+		sessionStorage.setItem("type", "return");
 	} catch (error) {
 		console.log(error);
 	}
