@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import "./reasonAsking.scss";
 import { useLocation } from "react-router-dom";
 import { Oval } from "react-loader-spinner";
+import { CgCheckO } from "react-icons/cg";
 
 const ReasonAsking = () => {
 	const location = useLocation();
@@ -14,6 +15,8 @@ const ReasonAsking = () => {
 	const [isSaveShow, setIsSaveShow] = useState(false);
 	const [isSaveClicked, setIsSaveClicked] = useState(false);
 	const [isLoading, setIsloading] = useState(false);
+	const [change, setChange] = useState(false);
+	const [allfieldGiven, setAllfieldGiven] = useState(0);
 	useEffect(() => {
 		if (location.pathname === "/exchange") setPageType("exchange");
 		else if (location.pathname === "/return") setPageType("return");
@@ -75,6 +78,10 @@ const ReasonAsking = () => {
 		if (reason !== "" && imgUrl !== "") {
 			sessionStorage.setItem("reason", reason);
 			sessionStorage.setItem("imageUrl", imgUrl);
+			setChange(true);
+			setAllfieldGiven(1);
+		} else {
+			setAllfieldGiven(2);
 		}
 	};
 	return (
@@ -113,10 +120,14 @@ const ReasonAsking = () => {
 							required
 						/>
 					</div>
-					{isSaveClicked && (
+					{isSaveClicked && !change && (
 						<button className="submit-btn" type="submit" onClick={saveData}>
 							Submit
 						</button>
+					)}
+					{change && allfieldGiven === 1 && <CgCheckO size={40} />}
+					{allfieldGiven === 2 && (
+						<span style={{ color: "#f47421" }}>You must fill all the data</span>
 					)}
 				</div>
 				<div className="preview-container">
