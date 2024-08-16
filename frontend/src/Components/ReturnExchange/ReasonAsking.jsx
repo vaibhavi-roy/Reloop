@@ -2,6 +2,7 @@
 import { useEffect, useState } from "react";
 import "./reasonAsking.scss";
 import { useLocation } from "react-router-dom";
+import { Oval } from "react-loader-spinner";
 
 const ReasonAsking = () => {
 	const location = useLocation();
@@ -10,6 +11,9 @@ const ReasonAsking = () => {
 	const [preview, setPreview] = useState(null);
 	const [reason, setReason] = useState("");
 	const [imgUrl, setImageUrl] = useState("");
+	const [isSaveShow, setIsSaveShow] = useState(false);
+	const [isSaveClicked, setIsSaveClicked] = useState(false);
+	const [isLoading, setIsloading] = useState(false);
 	useEffect(() => {
 		if (location.pathname === "/exchange") setPageType("exchange");
 		else if (location.pathname === "/return") setPageType("return");
@@ -27,11 +31,13 @@ const ReasonAsking = () => {
 		};
 		if (file) {
 			reader.readAsDataURL(file);
+			setIsSaveShow(true);
 		}
 	};
 
 	const uplaodImage = async () => {
 		// const file = event.target.files[0];
+		setIsloading(true);
 		try {
 			const data = new FormData();
 			data.append("file", imageProduct);
@@ -50,6 +56,8 @@ const ReasonAsking = () => {
 			const result = await resp.json();
 			console.log(result);
 			setImageUrl(result.secure_url);
+			setIsSaveClicked(true);
+			setIsSaveShow(false);
 		} catch (error) {
 			console.log("Error uploading image:", error);
 		}
@@ -105,14 +113,45 @@ const ReasonAsking = () => {
 							required
 						/>
 					</div>
-					<button className="submit-btn" type="submit" onClick={saveData}>
-						Submit
-					</button>
+					{isSaveClicked && (
+						<button className="submit-btn" type="submit" onClick={saveData}>
+							Submit
+						</button>
+					)}
 				</div>
 				<div className="preview-container">
 					{preview && <img src={preview} alt="Image Preview" />}
 				</div>
-				<button onClick={uplaodImage}>save</button>
+				{isSaveShow && (
+					<>
+						{!isLoading ? (
+							<button
+								onClick={uplaodImage}
+								id="save-btn"
+								className="submit-btn">
+								save image
+							</button>
+						) : (
+							<div id="save-btn">
+								<Oval
+									visible={true}
+									height="80"
+									width="80"
+									color="#4fa94d"
+									ariaLabel="oval-loading"
+									wrapperStyle={{}}
+									wrapperClass=""
+								/>
+							</div>
+						)}
+					</>
+				)}
+				{isSaveClicked && (
+					<span id="save-btn" style={{ color: "#f47421" }}>
+						{" "}
+						Image Saved successfully!!
+					</span>
+				)}
 			</div>
 		</>
 	);
