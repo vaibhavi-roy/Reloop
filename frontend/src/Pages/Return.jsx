@@ -6,6 +6,8 @@ import Address from "../Components/ReturnExchange/Address";
 import Method from "../Components/ReturnExchange/Method";
 import { useEffect, useState } from "react";
 import { return_req } from "../Services/api.returnExchange";
+import Swal from "sweetalert2";
+// import { useNavigate } from "react-router-dom";
 
 const Return = () => {
 	const [pageNumber, setPageNumber] = useState(0);
@@ -91,11 +93,11 @@ const Return = () => {
 						Continue
 					</button>
 				)}
-				{pageNumber === 2 && (
+				{/* {pageNumber === 2 && (
 					<button className="submit-btn" onClick={applyReturn}>
 						Apply
 					</button>
-				)}
+				)} */}
 			</div>
 		</div>
 	);
@@ -122,6 +124,23 @@ export const applyReturn = async () => {
 	try {
 		const res = await return_req(data);
 		console.log(res);
+		Swal.fire({
+			title: "Request Submitted",
+			icon: "success",
+			showClass: {
+				popup: `animate__animated
+								animate__fadeInUp
+								animate__faster`,
+			},
+			hideClass: {
+				popup: `
+							animate__animated 
+							animate__fadeOutDown 
+							animate__faster
+						`,
+			},
+		});
+		sessionStorage.clear();
 	} catch (error) {
 		console.log(error);
 	}

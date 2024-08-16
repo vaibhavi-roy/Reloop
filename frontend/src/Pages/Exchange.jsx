@@ -54,6 +54,7 @@ const Exchange = () => {
 		try {
 			const res = await exchange_req(data);
 			console.log(res);
+			sessionStorage.clear();
 		} catch (error) {
 			console.log(error);
 		}

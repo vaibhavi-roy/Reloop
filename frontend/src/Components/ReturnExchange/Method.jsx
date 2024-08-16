@@ -2,7 +2,9 @@
 import { useEffect, useState } from "react";
 import "./method.scss";
 import { useNavigate } from "react-router-dom";
+// import Swal from "sweetalert2";
 import { applyReturn } from "../../Pages/Return";
+import { Oval } from "react-loader-spinner";
 
 const Method = () => {
 	const navigate = useNavigate();
@@ -10,18 +12,21 @@ const Method = () => {
 	const [accountNumber, setAccountNumber] = useState();
 	const [accountHolder, setAccountHolder] = useState("");
 	const [ifsc, setIfsc] = useState("");
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		if (method === 3) {
 			setMethod(0);
 			navigate("/home");
-		} else if (method === 2) {
-			setMethod(0);
-			console.log("show sweet alert");
-			navigate("/home");
 		}
 	}, []);
-
+	const msg = async () => {
+		await applyReturn();
+		setIsLoading(false);
+		setMethod(0);
+		// console.log("show sweet alert");
+		navigate("/home");
+	};
 	return (
 		<>
 			{method === 0 && (
@@ -37,13 +42,29 @@ const Method = () => {
 							<br />
 							(NEFT - account details required)
 						</button>
-						<button
-							className="btn-two"
-							onClick={() => {
-								setMethod(2), sessionStorage.setItem("method", "Coin Transfer");
-							}}>
-							<span>Add Coins to Wallet</span>
-						</button>
+						{!isLoading ? (
+							<button
+								className="btn-two"
+								onClick={() => {
+									sessionStorage.setItem("method", "Coin Transfer"),
+										msg(),
+										setIsLoading(true);
+								}}>
+								<span>Add Coins to Wallet</span>
+							</button>
+						) : (
+							<>
+								<Oval
+									visible={true}
+									height="80"
+									width="80"
+									color="#4fa94d"
+									ariaLabel="oval-loading"
+									wrapperStyle={{}}
+									wrapperClass=""
+								/>
+							</>
+						)}
 					</div>
 				</>
 			)}
@@ -79,12 +100,26 @@ const Method = () => {
 							/>
 						</div>
 						<div className="btn-container">
-							<button
-								onClick={() => {
-									console.log("now click on apply button");
-								}}>
-								Done
-							</button>
+							{!isLoading ? (
+								<button
+									onClick={() => {
+										setIsLoading(true), msg();
+									}}>
+									Done
+								</button>
+							) : (
+								<>
+									<Oval
+										visible={true}
+										height="80"
+										width="80"
+										color="#4fa94d"
+										ariaLabel="oval-loading"
+										wrapperStyle={{}}
+										wrapperClass=""
+									/>
+								</>
+							)}
 						</div>
 					</div>
 				</>

@@ -1,6 +1,8 @@
 // import React from 'react'
 import { useState } from "react";
+import { CgCheckO } from "react-icons/cg";
 import "./address.scss";
+import { Oval } from "react-loader-spinner";
 const Address = () => {
 	const [email, setEmail] = useState("");
 	const [phone, setPhone] = useState("");
@@ -9,7 +11,9 @@ const Address = () => {
 	const [city, setCity] = useState("");
 	const [pin, setPin] = useState();
 	const [state, setState] = useState("");
-
+	const [isLoadOnSave, setIsLoadOnSave] = useState(false);
+	const [showIcon, setShowIcon] = useState(false);
+	const [allfieldGiven, setAllfieldGiven] = useState(0);
 	// const [totalAddress, setTotalAddress] = useState({});
 
 	const saveData = () => {
@@ -29,6 +33,8 @@ const Address = () => {
 			// 	pincode: pin,
 			// 	district: dist,
 			// });
+			setIsLoadOnSave(true);
+			setAllfieldGiven(1);
 			sessionStorage.setItem("address", address);
 			sessionStorage.setItem("city", city);
 			sessionStorage.setItem("state", state);
@@ -36,9 +42,15 @@ const Address = () => {
 			sessionStorage.setItem("district", dist);
 			sessionStorage.setItem("email", email);
 			sessionStorage.setItem("phone_number", phone);
+		} else {
+			setAllfieldGiven(2);
 		}
 
 		// if (totalAddress !== null) sessionStorage.setItem("address", totalAddress);
+		setTimeout(() => {
+			setIsLoadOnSave(false);
+			setShowIcon(true);
+		}, 2500);
 	};
 
 	return (
@@ -105,7 +117,38 @@ const Address = () => {
 					/>
 				</div>
 				<div className="btn-container">
-					<button onClick={saveData}>Save</button>
+					{isLoadOnSave ? (
+						<>
+							<Oval
+								visible={true}
+								height="80"
+								width="80"
+								color="#4fa94d"
+								ariaLabel="oval-loading"
+								wrapperStyle={{}}
+								wrapperClass=""
+							/>
+						</>
+					) : (
+						<div
+							style={{
+								display: "flex",
+								flexDirection: "column",
+								alignItems: "center",
+								justifyContent: "center",
+							}}>
+							{showIcon ? (
+								<>{allfieldGiven === 1 && <CgCheckO size={40} />}</>
+							) : (
+								<button onClick={saveData}>Save</button>
+							)}
+							{allfieldGiven === 2 && (
+								<span style={{ color: "#f47421" }}>
+									You must fill all the data
+								</span>
+							)}
+						</div>
+					)}
 				</div>
 			</div>
 		</>
