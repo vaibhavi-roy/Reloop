@@ -26,7 +26,9 @@ const Home = () => {
         <div className="buttons">
           <img src={trackerImg}></img>
           <h2>Check your product status</h2>
-          <button className="home-btn">Tracker</button>
+          <button className="home-btn" onClick={() => navigate("/tracker")}>
+            Tracker
+          </button>
         </div>
         <div className="buttons">
           <img src={returnImg}></img>
