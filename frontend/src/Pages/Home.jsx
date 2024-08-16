@@ -34,18 +34,14 @@ const Home = () => {
 		setMethod(sessionStorage.getItem("type"));
 	}, []);
 	return (
-		<div>
+		<div className="home-wrapper">
 			<Navbar />
 			<div className="header">
-				<h3>
-					{" "}
-					Welcome to Reloop, designed to streamline and optimize the process of
-					managing product returns, exchanges, and product timelines. Our
-					platform provides seamless integration with the admin side, ensuring
-					efficient handling of reverse logistics operations.
-				</h3>
+				<h2> Seamless Returns, Simplified Exchanges</h2>
 			</div>
-			<img className="hero-img" src={heroImg} alt=" " />
+			<div className="image-container">
+				<img className="hero-img" src={heroImg} alt=" " />
+			</div>
 			<div className="btn-con">
 				<div className="buttons">
 					<img src={trackerImg}></img>
